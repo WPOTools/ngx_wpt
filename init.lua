@@ -1,6 +1,28 @@
-hosts = ngx.shared.hosts
--- TODO(KL):
--- Replace with a function that loads hosts from a json file
-hosts:set("B", "<IP-HERE>")
-hosts:set("1", "<IP-HERE>")
-hosts:set(0, 1)
+function readAll(file)
+    local f = io.open(file, "rb")
+    local content = f:read("*all")
+    f:close()
+    return content
+end
+
+function load_conf(conf)
+    local cjson = require("cjson")
+    local fc = readAll(conf)
+    return cjson.decode(fc)
+end
+
+local config = load_conf("/etc/nginx/conf.d/conf.json")
+local hosts = ngx.shared.hosts
+local len = 0
+
+local ch = config["hosts"]
+
+for host in ipairs(ch) do
+    hosts:set(ch[host]["id"], ch[host]["host"])
+    hosts:set(host, ch[host]["host"])
+
+    len=1+len
+end
+
+-- set length of hosts
+hosts:set(0, len)

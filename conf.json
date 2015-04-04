@@ -1,0 +1,5 @@
+{
+    "hosts": [
+        {"id": "B", "host": "<ip-goes-here>"}
+    ]
+}
