@@ -12,12 +12,13 @@ function string:split(delimiter)
 end
 
 
-function get_path()
-    return ngx.var.request.split(ngx.var.request, " ")[2]
-end
-
 function starts(String,Start)
    return string.sub(String,1,string.len(Start))==Start
+end
+
+
+function get_path()
+    return ngx.var.request.split(ngx.var.request, " ")[2] 
 end
 
 
@@ -30,6 +31,7 @@ function select_sample(args, path)
 
     return false
 end
+
 
 -- If the `test` query param exist then return it
 -- path. Otherwise return the request path
@@ -53,13 +55,13 @@ local hosts = ngx.shared.hosts
 local id = get_id()
 
 if id and hosts.get(hosts, id) then
-    ngx.log(ngx.ERR, "GOT ID!!! "..id)
-    ngx.var.target = hosts.get(hosts, id)
+    local host = hosts.get(hosts, id)
+    ngx.var.target = host
 else
     -- Random Round Robin algorithm
-    ngx.log(ngx.ERR, "NOOOOO ID!!! ")
     local len = hosts.get(hosts, 0)
-    math.randomseed(os.time())
+    math.randomseed(os.time()) 
     local index = math.random(1, len)
-    ngx.var.target = hosts.get(hosts, index)
+    local host = hosts.get(hosts, index)
+    ngx.var.target = host
 end
