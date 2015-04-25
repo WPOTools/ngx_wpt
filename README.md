@@ -9,15 +9,12 @@ ngx_wpt is a plugin for NGINX that extends it to be able to route the incoming t
 - The ability to share the test agents between more than one WPT server. By sending them to ngx_wpt instead of directly hiting a WPT server.
 
 
-___
-
-
 ## Table of content
 - [How does it work?](#how-does-it-work-)
 - [Installation](#installation)
 - [Configuring ngx_wpt](#configuring-ngx_wpt)
 
-____
+
 # How Does It Work?
 
 ![ngx_wpt architecture](https://raw.githubusercontent.com/lafikl/ngx_wpt/master/arch.jpg)
@@ -29,7 +26,6 @@ All of the incoming traffic should be sent to ngx_wpt which will determine based
 - Otherwise ngx_wpt will perform a round-robin algorithm to load balance the workload.
 
 
-___
 
 # Installation
 This is a guide for Ubuntu 14.04.
@@ -107,7 +103,6 @@ sudo ./configure --prefix=/usr/local/openresty/luajit \
 - `sudo rm /etc/nginx/sites-enabled/default`
 - `sudo service nginx restart`
 
-___
 # Configuring ngx_wpt
 
 - Edit `/etc/wpt/conf.json` by adding your WPT hosts IPs and the ID for each server.
