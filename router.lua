@@ -42,7 +42,7 @@ function get_id()
 
     local id = nil
     if sample then
-        local captures, err = ngx.re.match(sample, "[1-9]+_(?<id>[A-Za-z]).+_[1-9]", "iox")
+        local captures, err = ngx.re.match(sample, "[1-9]+_(?<id>[A-Za-z])[A-Za-z]+_[1-9]", "iox")
         if captures["id"] then
             id = captures["id"]
         end
